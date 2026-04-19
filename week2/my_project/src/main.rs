@@ -1,5 +1,4 @@
-// This requires 'cargo add text_io'
-#[macro_use] extern crate text_io;
+use std::io;
 
 fn collatz(start: i64) -> i64 {
     let mut x = start;
@@ -18,8 +17,10 @@ fn collatz(start: i64) -> i64 {
 
 fn main() {
     println!("Please enter an integer.");
-    let line: String = read!("{}\n");
-    let start_num: i64 = line.parse().unwrap();
+    let mut line = String::new();
+    io::stdin().read_line(&mut line).expect("Failed to read input");
+
+    let start_num: i64 = line.trim().parse().unwrap();
 
     println!("Computing Collatz sequence length for {}.", start_num);    
     let seq_length = collatz(start_num);
